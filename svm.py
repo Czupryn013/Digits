@@ -42,3 +42,6 @@ print(
     f"{metrics.classification_report(y_test, predicted)}\n"
 )
 plt.show()
+
+# jupyter-kernelspec uninstall .venv
+# ipython kernel install --name=.venv
