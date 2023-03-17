@@ -4,24 +4,24 @@ import numpy as np
 
 app = Flask(__name__)
 
-model = pickle.load(open("svv.sav", 'rb'))
+model = pickle.load(open("svm.sav", 'rb'))
 
 @app.route("/digits", methods = ["GET"])
 def get_app_description():
-    return "This is a digits recogniton app.", 200
+    return "This is a digits recogniton app. Pass a 784 characters long list of inteagers and get the prediction.", 200
 
 @app.route("/digits", methods = ["POST"])
 def get_digit():
     request_data = request.get_json()
     digit = request_data.get("digit")
-    if not digit or len(digit) != 64 or type(digit) != list: return "Incorrect json body", 400
+    if not digit or len(digit) != 784 or type(digit) != list: return "Incorrect json body", 400
 
     for element in digit:
-        if not isinstance(element, int) or not all(ch in ['0', '1'] for ch in bin(element)[2:]):
+        if not isinstance(element, int):
             return "Passed argument isn't all binary.", 400
 
     digit = np.array(digit)
-    digit = digit.reshape((1,64))
+    digit = digit.reshape((1,784))
     predicted = model.predict(digit)
     print(predicted[0])
 
