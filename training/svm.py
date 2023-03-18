@@ -1,47 +1,46 @@
-import matplotlib.pyplot as plt
-
 from sklearn import datasets, svm, metrics
+import numpy as np
+from tensorflow.keras.datasets import mnist
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import pickle
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+clf = svm.SVC()
 
-digits = datasets.load_digits()
+x = np.concatenate((x_train, x_test))
+y = np.concatenate((y_train, y_test))
+x = x.reshape(70000, -1)
 
-_, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
-for ax, image, label in zip(axes, digits.images, digits.target):
-    ax.set_axis_off()
-    ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
-    ax.set_title("Training: %i" % label)
-
-# flatten the images
-n_samples = len(digits.images)
-data = digits.images.reshape((n_samples, -1))
-
-# Create a classifier: a support vector classifier
-clf = svm.SVC(gamma=0.001)
-
-# Split data into 50% train and 50% test subsets
 X_train, X_test, y_train, y_test = train_test_split(
-    data, digits.target, test_size=0.5, shuffle=False
+    x, y, test_size=0.4, shuffle=False
 )
+#split data into test and train sets
+#x = images, y = number values
 
-# Learn the digits on the train subset
-clf.fit(X_train, y_train)
+clf.fit(X_train, y_train) #training
+predicted = clf.predict(X_test) #using the model
 
-# Predict the value of the digit on the test subset
-predicted = clf.predict(X_test)
+pickle.dump(clf, open("svm.sav", 'wb'))
 
-_, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
-for ax, image, prediction in zip(axes, X_test, predicted):
+_, axes = plt.subplots(nrows=1, ncols=5, figsize=(10, 3))
+for ax, image, prediction, label in zip(axes, X_test, predicted, y_test):
     ax.set_axis_off()
-    image = image.reshape(8, 8)
+    image = image.reshape(28, 28)
     ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
-    ax.set_title(f"Prediction: {prediction}")
+    ax.set_title(f"Prediction: {prediction} \n True: {label}")
+#showing results
+plt.show()
 
 print(
     f"Classification report for classifier {clf}:\n"
     f"{metrics.classification_report(y_test, predicted)}\n"
 )
-plt.show()
+
+con_matrix = confusion_matrix(y_test, predicted)
+disp = ConfusionMatrixDisplay(confusion_matrix=con_matrix)
+disp.plot()
 
 # jupyter-kernelspec uninstall .venv
 # ipython kernel install --name=.venv
