@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-model = pickle.load(open("svm.sav", 'rb'))
+model = pickle.load(open("../svm.sav", 'rb'))
 
 @app.route("/digits", methods = ["GET"])
 def get_app_description():

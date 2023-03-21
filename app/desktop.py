@@ -2,7 +2,6 @@ import pygame
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
-import time
 
 pygame.init()
 
@@ -18,7 +17,8 @@ drawing_array = np.zeros((28, 28))
 previous_drawings = []
 drawing = False
 font = pygame.font.SysFont("Roboto", 25)
-model = pickle.load(open("../svm.sav", 'rb'))
+# model = pickle.load(open("../svm.sav", 'rb'))
+model = pickle.load(open("../training/cutom_svm.sav", 'rb'))
 predicted = "-"
 
 def draw(predicted):
