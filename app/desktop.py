@@ -59,7 +59,8 @@ while True:
             if event.key == pygame.K_RETURN:
                 digit = drawing_array.reshape((1,784))
                 predicted = model.predict(digit)
-                show_digit(digit)
+                previous_drawings = []
+                drawing_array = np.zeros((28, 28))
         elif event.type == pygame.MOUSEMOTION and drawing:
             x, y = pygame.mouse.get_pos()
             if (x < 0 or x >= DRAW_WIDTH) or (y < 0 or y >= DRAW_HEIGHT): continue

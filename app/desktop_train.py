@@ -18,12 +18,11 @@ current_num = 0
 # running first time or resteting use 21 and 22 line, otherwise 19 and 20
 count = np.load("count.npy")
 test_data = np.load("test_data.npy")
-# count = np.array([99])
-# test_data = np.zeros((100, 784))
-print(test_data)
+# count = np.array([999])
+# test_data = np.zeros((1000, 784))
 test_numbers = []
 for i in range(10):
-    for j in range(10):
+    for j in range(100):
         test_numbers.append(i)
 
 current_num = test_numbers[count[0]]
@@ -76,15 +75,15 @@ while True:
                 digit = drawing_array.reshape((1,784))
                 test_data[count] = digit
                 conf = f"Current image for {current_num} has been saved."
-                if not count[0] > 99:
-                    if not count[0] >= 99:
+                if not count[0] > 999:
+                    if not count[0] >= 999:
                         count[0] += 1
                     current_num = test_numbers[count[0]]
                 previous_drawings = []
                 drawing_array = np.zeros((28, 28))
             if event.key == pygame.K_z:
                 count[0] -= 1
-                if not count[0] > 99:
+                if not count[0] > 999:
                     current_num = test_numbers[count[0]]
             if event.key == pygame.K_s:
                 np.save("test_data.npy", test_data)
