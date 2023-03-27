@@ -1,7 +1,8 @@
-import pygame
-import numpy as np
-import matplotlib.pyplot as plt
 from os.path import isfile
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pygame
 
 pygame.init()
 
@@ -16,7 +17,6 @@ GRID_COLOR = (211, 211, 211)
 conf = ""
 drawing_array = np.zeros((28, 28))
 current_num = 0
-# running first time or resteting use 21 and 22 line, otherwise 19 and 20
 #check if files exist
 if isfile("count.npy"): count = np.load("count.npy")
 else: count = np.array([])
