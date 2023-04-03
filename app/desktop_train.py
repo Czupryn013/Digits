@@ -1,6 +1,6 @@
-import pygame
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pygame
 
 pygame.init()
 
@@ -18,7 +18,7 @@ current_num = 0
 # running first time or resteting use 21 and 22 line, otherwise 19 and 20
 count = np.load("count.npy")
 test_data = np.load("test_data.npy")
-# count = np.array([999])
+# count = np.array([0])
 # test_data = np.zeros((1000, 784))
 test_numbers = []
 for i in range(10):
