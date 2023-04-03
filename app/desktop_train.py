@@ -1,6 +1,6 @@
+from os.path import isfile
+
 import matplotlib.pyplot as plt
-import numpy as np
-import pygame
 
 pygame.init()
 
@@ -16,10 +16,12 @@ conf = ""
 drawing_array = np.zeros((28, 28))
 current_num = 0
 # running first time or resteting use 21 and 22 line, otherwise 19 and 20
-count = np.load("count.npy")
-test_data = np.load("test_data.npy")
-# count = np.array([0])
-# test_data = np.zeros((1000, 784))
+#check if files exist
+if isfile("count.npy"): count = np.load("count.npy")
+else: count = np.array([])
+
+if isfile("test_data.npy"): test_data = np.load("test_data.npy")
+else: test_data = np.zeros((1000, 784))
 test_numbers = []
 for i in range(10):
     for j in range(100):

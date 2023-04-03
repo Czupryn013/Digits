@@ -1,10 +1,11 @@
+import pickle
+
 from sklearn import datasets, svm, metrics
 import numpy as np
 from tensorflow.keras.datasets import mnist
 from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-import pickle
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 clf = svm.SVC()
@@ -41,6 +42,3 @@ print(
 con_matrix = confusion_matrix(y_test, predicted)
 disp = ConfusionMatrixDisplay(confusion_matrix=con_matrix)
 disp.plot()
-
-# jupyter-kernelspec uninstall .venv
-# ipython kernel install --name=.venv
