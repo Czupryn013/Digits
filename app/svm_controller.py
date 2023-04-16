@@ -1,10 +1,11 @@
-from flask import Flask, request
 import pickle
+
 import numpy as np
+from flask import Flask, request
 
 app = Flask(__name__)
 
-model = pickle.load(open("../svm.sav", 'rb'))
+model = pickle.load(open("../training/models/cutom_svm1k.sav", 'rb'))
 
 @app.route("/digits", methods = ["GET"])
 def get_app_description():

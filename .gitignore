@@ -7,7 +7,7 @@ __pycache__/
 svm.sav
 *.npy
 *.sav
-!training/data1000.npy
+training/models/data1000.npy
 
 # C extensions
 *.so
