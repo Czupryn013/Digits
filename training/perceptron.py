@@ -1,10 +1,9 @@
 import numpy as np
+import pandas as pd
 
 
 def unit_step(x):
     return np.where(x > 0, 1, 0)
-#jak to dokładnie działa?
-
 
 class Perceptron:
     def __init__(self, learning_rate=0.01, n_iters=1000, bias=0.0):
@@ -28,6 +27,7 @@ class Perceptron:
 
                 #update
                 update = self.lr  * (y_[index] - y_predicted) #int - np_array?
+                print(y_[index].shape)
                 self.weights += update * x_i
                 self.bias += update
 
@@ -39,18 +39,16 @@ class Perceptron:
 
 # Testing
 if __name__ == "__main__":
-    # Imports
     import matplotlib.pyplot as plt
-    from sklearn import datasets
     from sklearn.model_selection import train_test_split
 
     def accuracy(y_true, y_pred):
-        accuracy = np.sum(y_true == y_pred) / len(y_true)
-        return accuracy
+        acc = np.sum(y_true == y_pred) / len(y_true)
+        return acc
 
-    X, y = datasets.make_blobs(
-        n_samples=150, n_features=2, centers=2, cluster_std=1.05, random_state=2
-    )
+    X = pd.read_csv("./data/train.csv")
+    y = X["Survived"]
+    y =  np.where(y, 1, 0)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=123
     )

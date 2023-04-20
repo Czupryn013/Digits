@@ -8,6 +8,7 @@ svm.sav
 *.npy
 *.sav
 training/models/data1000.npy
+training/data/*
 
 # C extensions
 *.so
